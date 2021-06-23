@@ -10,24 +10,24 @@
 
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue'
-
+import { ref, defineComponent, PropType } from 'vue'
+export interface Variable {
+  title:string;
+  description:string;
+}
 export default defineComponent({
   name: 'VariableManager',
   data() {
     return {
-      variables: [
-        {
-          title: 'beautiful',
-          description: 'Define if the painting is considered as beautiful'
-        },{
-          title: 'big',
-          description: 'Define if the painting is considered as big'
-        },
-      ],
       title: '',
       description: '',
     }
+  },
+  props: {
+    variables: {
+      type: Array as PropType<Variable[]>,
+      required:true,
+    },
   },
   methods:{
     del(title:string){
@@ -35,12 +35,16 @@ export default defineComponent({
       let index = this.variables.findIndex((el) => el.title == title );
       console.log(index);
       this.variables.splice(index, 1);
+      this.$emit('variablesChanged', this.variables);
     },
     add(){
       this.variables.push({
         title: this.title,
         description: this.description,
-      })
+      });
+      this.title = '';
+      this.description= '';
+      this.$emit('variablesChanged', this.variables);
     },
   },
   setup: () => {

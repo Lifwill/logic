@@ -1,15 +1,36 @@
 <template>
-  <VariableManager />
+  <VariableManager :variables="variables" @variablesChanged="variablesChanged"/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import VariableManager from './components/VariableManager.vue';
+import VariableManager, {Variable} from './components/VariableManager.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    VariableManager,
+    VariableManager
+  },
+  data(){
+    return {
+      
+      variables: [
+        {
+          title: 'beautiful',
+          description: 'Define if the painting is considered as beautiful'
+        },{
+          title: 'big',
+          description: 'Define if the painting is considered as big'
+        },
+      ],
+      title: '',
+      description: '',
+    }
+  },
+  methods : {
+    variablesChanged(curVariables:Variable[]) {
+      this.variables = curVariables;
+    }
   }
 })
 </script>
