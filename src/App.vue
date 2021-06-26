@@ -1,28 +1,22 @@
 <template>
-  <VariableManager :variables="variables" @variablesChanged="variablesChanged"/>
+  <VariableManager :variables="[...variables]" @variablesChanged="variablesChanged"/>
+  <VariableTable :variables="[...variables]" @variablesChanged="variablesChanged"/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import VariableManager, {Variable} from './components/VariableManager.vue';
+import VariableTable from './components/VariableTable.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    VariableManager
+    VariableManager,
+    VariableTable,
   },
   data(){
     return {
-      
-      variables: [
-        {
-          title: 'beautiful',
-          description: 'Define if the painting is considered as beautiful'
-        },{
-          title: 'big',
-          description: 'Define if the painting is considered as big'
-        },
-      ],
+      variables: [] as Array<Variable>,
       title: '',
       description: '',
     }

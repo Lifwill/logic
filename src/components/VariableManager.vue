@@ -10,7 +10,7 @@
 
 
 <script lang="ts">
-import { ref, defineComponent, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 export interface Variable {
   title:string;
   description:string;
@@ -46,10 +46,6 @@ export default defineComponent({
       this.description= '';
       this.$emit('variablesChanged', this.variables);
     },
-  },
-  setup: () => {
-    const count = ref(0)
-    return { count }
   },
 })
 </script>
