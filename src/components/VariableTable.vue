@@ -14,13 +14,23 @@
 
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import {Variable} from './VariableManager.vue'
+import { defineComponent, PropType } from 'vue';
+import {Variable} from './VariableManager.vue';
+// the type formula is a kind of tree where each node contain the 
+interface Formula {
+  type:'and' | 'or';
+  elements:Array<Formula>;
+}
+/**
+ * The variable table is the component that displays the list of variables and 
+ * the result of all possible true/false cases
+ */
 export default defineComponent({
-  name: 'VariableManager',
+  name: 'VariableTable',
   data() {
     return {
       logicalTable: [] as Array<{ [key: string]: boolean; }>,
+      formula:{} as Formula,
     }
   },
   props: {
@@ -64,7 +74,6 @@ export default defineComponent({
         let newLogicalTable = this.logicalTable.filter(logicalLine => logicalLine[removedTitle]);
         this.logicalTable = newLogicalTable.map(({[removedTitle] : removedTitleValue, ...keptTitles}) => keptTitles);
       }
-      console.log('logicaltable', [...this.logicalTable], this.logicalLineNumber, this.variables);
     }
   }
 })

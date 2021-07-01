@@ -15,6 +15,10 @@ export interface Variable {
   title:string;
   description:string;
 }
+/**
+ * The variable manager component allows to manager the variable list. 
+ * It provides fields to upadate the list of variables upon addition and removal
+ */
 export default defineComponent({
   name: 'VariableManager',
   data() {
@@ -24,6 +28,10 @@ export default defineComponent({
     }
   },
   props: {
+    /**
+     * The variables are the original list of variables that will be updated 
+     * The modification are emit by event.
+     */
     variables: {
       type: Array as PropType<Variable[]>,
       required:true,
